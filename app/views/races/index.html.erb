@@ -1,16 +1,47 @@
 <div class="container">
-  <div>
-    <h2>Criar Corrida</h2>
-    <%= form_tag races_path, multipart: true do |form| %>
-      <div class="form-group">
-        <label for="race[name]">Nome da Corrida:</label>
-        <%= text_field(:race, :name) %>
+  <div class='mt-3'>
+    <div class="card">
+      <div class="card-header">
+        <h2>Criar Corrida</h2>
       </div>
-      <div class="form-group">
-        <label for="file">Arquivo de Log:</label>
-        <%= file_field_tag :file %>
+      <div class="card-body">
+        <%= form_tag races_path, multipart: true do |form| %>
+          <div class="form-group">
+            <label for="race[name]">Nome da Corrida:</label>
+            <%= text_field(:race, :name) %>
+          </div>
+          <div class="form-group">
+            <label for="file">Arquivo de Log:</label>
+            <%= file_field_tag :file %>
+          </div>
+          <%= submit_tag 'Criar', class:"btn btn-primary"%>
+        <% end %>
       </div>
-      <%= submit_tag 'Criar', class:"btn btn-primary"%>
-    <% end %>
+    </div>
   </div>
+
+  <% if @races %>
+    <div class='mt-3'>
+      <h2>Lista de Corrida</h2>
+
+      <table class="table">
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Nome</th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <% @races.each do |race| %>
+            <tr>
+              <th scope="row"><%= race.id %></th>
+              <td><%= race.name %></td>
+              <td><%= link_to 'Show', race_path(race) %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  <% end %>
 </div>
