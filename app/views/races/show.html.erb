@@ -1,0 +1,55 @@
+<div class="container">
+  <div>
+    <h2>Corrida - <%= @race.name %></h2>
+
+    <h3>Classificação</h3>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Posição</th>
+          <th scope="col">Cod. Piloto</th>
+          <th scope="col">Nome Piloto</th>
+          <th scope="col">Qtd. Voltas Completadas</th>
+          <th scope="col">Tempo Total de Prova</th>
+          <th scope="col">Melhor Volta</th>
+          <th scope="col">Tempo melhor Volta</th>
+          <th scope="col">Velocidade Média</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @racer_infos.each.with_index(1) do |racer_info, index| %>
+          <tr>
+            <th scope="row"><%= index %></th>
+            <td><%= racer_info.racer.code %></td>
+            <td><%= racer_info.racer.name %></td>
+            <td><%= racer_info.number_laps %></td>
+            <td><%= Time.at(racer_info.total_time).utc.strftime("%H:%M:%S.%L") %></td>
+            <td><%= racer_info.best_lap %></td>
+            <td><%= Time.at(racer_info.time_best_lap).utc.strftime("%H:%M:%S.%L") %></td>
+            <td><%= racer_info.avg_speed %></td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <h3>Melhor Volta da corrida</h3>
+    <table class="table">
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Cod. Piloto</th>
+          <th scope="col">Nome Piloto</th>
+          <th scope="col">Melhor Volta</th>
+          <th scope="col">Tempo melhor Volta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><%= @best_lap.racer.code %></td>
+          <td><%= @best_lap.racer.name %></td>
+          <td><%= @best_lap.best_lap %></td>
+          <td><%= Time.at(@best_lap.time_best_lap).utc.strftime("%H:%M:%S.%L") %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
