@@ -2,41 +2,38 @@
 
 Esse teste foi desenvolvido utilizando docker e docker-compose, nas seguintes
 versões:
-```bash
-Docker version 18.06.1-ce
-docker-compose version 1.22.0
-```
-Se precisar, as instruções para instala-los está em
-https://docs.docker.com/install/
+
+- Docker version 18.06.1-ce
+- docker-compose version 1.22.0
+
+Se precisar, as instruções para instala-los está em https://docs.docker.com/install/
 
 ## Como executar a aplicação
 Baixe o projeto e entre na pasta:
-```bash
+
 git clone https://github.com/guilhermehilst/gympass-interview-test.git
 cd gympass-interview-test
-```
+
 Como o docker e o docker-compose instalados,  execute os seguintes comandos:
-```bash
+
 docker-compose build
-```
+
 para instalar as gems:
-```bash
+
 docker-compose run --rm web bundle install
-```
+
 para criar o banco de dados e fazer a migrações:
-```bash
+
 docker-compose run --rm web bundle exec rails db:setup
-```
+
 após tudo configurado, rode o seguinte comando para rodar a aplicação:
-```bash
+
 docker-compose up
-```
-para acessar a aplicação, entre no browser na seguinte url:
-`http://localhost:3000`
+
+para acessar a aplicação, entre no browser na seguinte url: `http://localhost:3000`
 
 ## Como executar a suite de testes
 Para os testes, foi escolhido as gems `rspec-rails` e `shoulda-matchers`.
 Execute o seguinte comando para rodar a suite de testes:
-```bash
+
 docker-compose run --rm web bundle exec rspec
-```
