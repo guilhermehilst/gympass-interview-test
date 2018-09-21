@@ -7,12 +7,13 @@ class Race::Parser
         racer = Racer.where(code: params[1], name: params[3]).first_or_create
         lap = race.laps.where(number: params[4]).first_or_create
 
-        RacerLap.create(racer: racer,
-                        lap: lap,
-                        time: params[0].to_datetime,
-                        duration: parse_duration(params[5]),
-                        speed: params[6].gsub(',','.'))
+        racer_lap = RacerLap.create(racer: racer,
+                                    lap: lap,
+                                    time: params[0].to_datetime,
+                                    duration: parse_duration(params[5]),
+                                    speed: params[6].gsub(',','.'))
 
+        Race::InfoUpdater.call(race, racer, racer_lap)
       end
     end
 

@@ -69,5 +69,21 @@ RSpec.describe Race::Parser do
 
       Race::Parser.call(file, race)
     end
+
+    it 'calls Race::InfoUpdater.call with the right params' do
+      race = create(:race)
+      lap = create(:lap, number: 1, race_id: race.id)
+      racer = create(:racer, name: 'F.MASSA', code: 38)
+      racer_lap = create(:racer_lap, racer_id: racer.id, lap_id: lap.id)
+      file = double('file', path: 'path_to_file')
+      file_content = StringIO.new("23:49:08.277   038 – F.MASSA  1 1:02.852  44,275")
+
+      allow(File).to receive(:open).and_return(file_content)
+      allow(RacerLap).to receive(:create).and_return(racer_lap)
+
+      expect(Race::InfoUpdater).to receive(:call).with(race, racer, racer_lap)
+
+      Race::Parser.call(file, race)
+    end
   end
 end
