@@ -65,7 +65,7 @@ RSpec.describe Race::Parser do
                                                 lap: lap,
                                                 time: "23:49:08.277".to_datetime,
                                                 duration: 62.852,
-                                                speed: '44.275')
+                                                speed: '44.275').and_call_original
 
       Race::Parser.call(file, race)
     end
