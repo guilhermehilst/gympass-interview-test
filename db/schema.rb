@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_09_20_221147) do
+ActiveRecord::Schema.define(version: 2018_09_21_024850) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "laps", force: :cascade do |t|
+    t.integer "number"
+    t.bigint "race_id"
+    t.index ["race_id"], name: "index_laps_on_race_id"
+  end
+
+  create_table "racer_laps", force: :cascade do |t|
+    t.datetime "time"
+    t.float "duration"
+    t.float "speed"
+    t.bigint "lap_id"
+    t.bigint "racer_id"
+    t.index ["lap_id"], name: "index_racer_laps_on_lap_id"
+    t.index ["racer_id"], name: "index_racer_laps_on_racer_id"
+  end
+
+  create_table "racers", force: :cascade do |t|
+    t.integer "code"
+    t.string "name"
+  end
 
   create_table "races", force: :cascade do |t|
     t.string "name"
